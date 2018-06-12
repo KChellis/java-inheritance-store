@@ -1,5 +1,6 @@
 package dao;
 
+import models.Item;
 import models.SmallAnimalItems;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public interface SmallAnimalItemsDao {
 
     //read
     List<SmallAnimalItems> getAll();
+    List<Item>getAllFromAllTypes();
     SmallAnimalItems findById( int id);
 
 

@@ -1,5 +1,7 @@
 package dao;
 
+
+import models.Item;
 import models.SmallAnimalItems;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -30,21 +32,52 @@ public class Sql2oSmallAnimalItemsDao implements SmallAnimalItemsDao {
 
     @Override
     public List<SmallAnimalItems> getAll() {
-        return null;
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM items WHERE type = 'small animal'")
+                    .executeAndFetch(SmallAnimalItems.class);
+        }
+
+    }
+    @Override
+    public List<Item> getAllFromAllTypes() {
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM items")
+                    .executeAndFetch(Item.class);
+        }
+
     }
 
     @Override
     public SmallAnimalItems findById(int id) {
-        return null;
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM items WHERE id = :id")
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(SmallAnimalItems.class);
+        }
     }
 
     @Override
     public void deleteById(int id) {
-
+        String sql = "DELETE from items WHERE id=:id";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
     }
+
 
     @Override
     public void clearAll() {
+        String sql = "DELETE from items WHERE type ='small animal'";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
 
     }
 
