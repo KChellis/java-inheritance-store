@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.util.HashMap;
+
 import static org.junit.Assert.*;
 
 public class Sql2oSmallAnimalItemsDaoTest {
@@ -79,5 +81,20 @@ public class Sql2oSmallAnimalItemsDaoTest {
         smallAnimalItemsDao.add(smallAnimalItemsTwo);
         smallAnimalItemsDao.clearAll();
         assertEquals(1, smallAnimalItemsDao.getAllFromAllTypes().size());
+    }
+
+    @Test
+    public void updateChangesValues() {
+        SmallAnimalItems smallAnimalItems = setupSmallAnimalItems();
+        smallAnimalItemsDao.add(smallAnimalItems);
+        System.out.println(smallAnimalItems.getDiscountAsPercentage());
+        HashMap<String, Object> updateContent = new HashMap<>();
+        updateContent.put("priceInCents", 699);
+        updateContent.put("description", "a thing");
+        smallAnimalItemsDao.update(smallAnimalItems.getId(), updateContent);
+        SmallAnimalItems updatedItem = smallAnimalItemsDao.findById(smallAnimalItems.getId());
+        assertEquals("a thing", updatedItem.getDescription());
+        assertEquals(699, updatedItem.getPriceInCents());
+        assertEquals(0, updatedItem.getDiscountAsPercentage());
     }
 }

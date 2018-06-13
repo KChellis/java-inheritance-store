@@ -3,6 +3,7 @@ package dao;
 import models.Item;
 import models.SmallAnimalItems;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface SmallAnimalItemsDao {
@@ -17,7 +18,7 @@ public interface SmallAnimalItemsDao {
 
 
     //update
-    //omit for now
+    void update(int id, HashMap<String, Object> updateContent);
 
     //delete
     void deleteById(int id);

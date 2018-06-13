@@ -8,6 +8,7 @@ import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Sql2oSmallAnimalItemsDao implements SmallAnimalItemsDao {
@@ -81,4 +82,18 @@ public class Sql2oSmallAnimalItemsDao implements SmallAnimalItemsDao {
 
     }
 
+    @Override
+    public void update(int id, HashMap<String, Object> updateContent) {
+        for(String key : updateContent.keySet()){
+            String sql = "UPDATE items SET (" + key + ") = (:" + key + ") WHERE id = :id";
+            try (Connection con = sql2o.open()) {
+                con.createQuery(sql)
+                        .addParameter(key, updateContent.get(key))
+                        .addParameter("id", id)
+                        .executeUpdate();
+            } catch (Sql2oException ex) {
+                System.out.println(ex);
+            }
+        }
+    }
 }

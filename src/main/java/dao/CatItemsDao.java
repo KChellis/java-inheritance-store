@@ -2,6 +2,7 @@ package dao;
 
 import models.CatItems;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface CatItemsDao {
@@ -14,7 +15,7 @@ public interface CatItemsDao {
 
 
     //update
-    //omit for now
+    void update(int id, HashMap<String, Object> updateContent);
 
     //delete
     void deleteById(int id);
