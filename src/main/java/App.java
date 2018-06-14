@@ -56,7 +56,7 @@ public class App {
             return gson.toJson(smallAnimalItems);
         });
         
-        get("/items/smallanimalitems", "application/json", (req, res) -> { //accept a request in format JSON from an app
+        get("/items/smallanimalitems", "application/json", (req, res) -> {
             if (smallAnimalItemsDao.getAll().size() == 0) {
                 return "{\"message\":\"I'm sorry, but no small animal items are currently listed in the database.\"}";
             } else {
@@ -64,7 +64,7 @@ public class App {
             }
         });
 
-        get("/items/catitems", "application/json", (req, res) -> { //accept a request in format JSON from an app
+        get("/items/catitems", "application/json", (req, res) -> {
             if (catItemsDao.getAll().size() == 0) {
                 return "{\"message\":\"I'm sorry, but no cat items are currently listed in the database.\"}";
             } else {
@@ -72,7 +72,7 @@ public class App {
             }
         });
 
-        get("/items/dogitems", "application/json", (req, res) -> { //accept a request in format JSON from an app
+        get("/items/dogitems", "application/json", (req, res) -> {
             if (dogItemsDao.getAll().size() == 0) {
                 return "{\"message\":\"I'm sorry, but no dog items are currently listed in the database.\"}";
             } else {
@@ -80,7 +80,7 @@ public class App {
             }
         });
 
-        get("/items", "application/json", (req, res) -> { //accept a request in format JSON from an app
+        get("/items", "application/json", (req, res) -> {
             if (smallAnimalItemsDao.getAllFromAllTypes().size() == 0) {
                 return "{\"message\":\"I'm sorry, but no items are currently listed in the database.\"}";
             } else {
@@ -88,17 +88,17 @@ public class App {
             }
         });
 
-        get("/items/smallanimalitems/:id", "application/json", (req, res) -> { //accept a request in format JSON from an app
+        get("/items/smallanimalitems/:id", "application/json", (req, res) -> {
             int smallAnimalItemsId = Integer.parseInt(req.params("id"));
             return gson.toJson(smallAnimalItemsDao.findById(smallAnimalItemsId));
         });
 
-        get("/items/dogitems/:id", "application/json", (req, res) -> { //accept a request in format JSON from an app
+        get("/items/dogitems/:id", "application/json", (req, res) -> {
             int dogItemsId = Integer.parseInt(req.params("id"));
             return gson.toJson(dogItemsDao.findById(dogItemsId));
         });
 
-        get("/items/catitems/:id", "application/json", (req, res) -> { //accept a request in format JSON from an app
+        get("/items/catitems/:id", "application/json", (req, res) -> {
             int catItemsId = Integer.parseInt(req.params("id"));
             return gson.toJson(catItemsDao.findById(catItemsId));
         });
